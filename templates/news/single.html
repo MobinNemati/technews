@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load news_tags %}
+{% load humanize %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="jumbotron jumbotron-single d-flex align-items-center">
+    <div class="container text-center">
+        <h1 class="display-2 mb-4">Single News</h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <!-- Single Content Holder -->
+        <div class="col-md-8">
+            <div class="search-box">
+                {% include "news/news-search.html" %}
+            </div>
+            <h3 class="mt-20 mb-20">{{posts.title}}</h3>
+            <img width="750px" src="{{posts.image.url}}" alt="">
+            <h5 class="text-img">{{posts.content|safe}}</h5><br><br><br><br><br>
+            <!-- ... (rest of your blog content) ... -->
+
+
+            <div class="row">
+                <div class="col-md-6 text-center">
+                    {% if prev_post %}
+                    <h5 class="button-text">Previous news</h5>
+                        <div class="button-container">
+                            <a href="{% url 'news:single' pid=prev_post.id %}" class="">
+                                <img src="{{ prev_post.image.url }}" alt="{{ prev_post.title }}" class="img-fluid">
+                                <p>{{prev_post.title}}</p>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 text-center">
+                    {% if next_post %}
+                    <h5 class="button-text">Next news</h5>
+                        <div class="button-container">
+                            <a href="{% url 'news:single' pid=next_post.id %}" class="">
+                                <img src="{{ next_post.image.url }}" alt="{{ next_post.title }}" class="i">
+                                <p>{{next_post.title}}</p>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div><br><br>
+
+            <!-- Comment Form -->
+            <div class="comment-form mt-4">
+                <h4>Leave a comment</h4>
+                <form action="{% url 'news:single' pid=posts.id %}" method="post">
+                    {% csrf_token %}
+
+                    <input type="hidden" name="post" value="{{posts.id}}">
+
+                    {% if request.user.is_authenticated %} 
+
+                    <input type="hidden" name="name" value="{{request.user.username}}">
+                    <input type="hidden" name="email" value="{{request.user.email}}">
+
+                    {% else %}
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <input type="text" class="form-control" placeholder="Name" name="name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="email" class="form-control" placeholder="Email" name="email">
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <textarea class="form-control" rows="5" placeholder="Your Comment" name="message"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Comment</button><br><br><br><br>
+                </form>
+            </div>
+            <!-- Comment Section -->
+            <div class="comment-section mt-4">
+                <h4>{{comments|length}} Comments</h4><br>
+                <!-- Comment Box -->
+                {% for comment in comments %}
+                <div class="comment-box mb-3">
+                    <div class="comment-header">
+                        <span class="comment-author">{{comment.name}}</span>
+                        <span class="comment-date">{{comment.created_date|naturaltime}}</span>
+                    </div>
+                    <div class="comment-content">
+                        <p>{{comment.message}}</p>
+                    </div> \
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Right Section -->
+        <div class="details col-md-4 mt-4">
+            <div class="category-box">
+                <div class="info">
+                    {% for cat in posts.category.all %}
+                        <a href="{% url 'news:category' cat_name=cat.name %}" class="hello col-6">{{ cat.name }}</a>{% if not forloop.last %} / {% endif %}
+                    {% endfor %}
+                    <p class="user-name col-lg-12 col-md-12 col-6"><a href="{% url 'news:author' author_username=posts.author %}">{{ posts.author }}</a> <span class="lnr lnr-user"></span></p>
+                    <p class="date col-lg-12 col-md-12 col-6">{{posts.published_date|date:'Y - m - d' }} <span class="lnr lnr-calendar-full"></span></p>
+                    <p class="view col-lg-12 col-md-12 col-6">{{posts.counted_view }} <span class="lnr lnr-eye"></span></p>
+                    <p class="comments col-lg-12 col-md-12 col-6">{{comments|length}} Comments <span class="lnr lnr-bubble"></span></p>
+                </div>
+        
+                {% include "news/news-tag.html" %}
+        
+                {% latestposts %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

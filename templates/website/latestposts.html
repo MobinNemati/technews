@@ -1,0 +1,20 @@
+{% load static %}
+
+{% for posts in posts %}
+<div class="testi-item text-center">
+    <i class="testi-icon fa fa-3x fa-quote-left"></i>
+    <h4 class="testi-text">{{posts.content|truncatewords:8}}</h4>
+
+      
+    <div class="testi-meta-inner d-flex justify-content-center align-items-center">
+        <div class="testi-img mr-2">
+            <a href="{% url 'news:single' pid=posts.id %}"><img src="{{posts.image.url}}" alt=""></a>
+        </div>
+        <div class="testi-details">
+            <a href="{% url 'news:single' pid=posts.id %}"><p class="testi-author mb-0 font-weight-bolder">{{posts.title}}</p></a>
+            <a href="{% url 'news:author' author_username=posts.author %}"><p class="testi-desc mb-0">{{posts.author}}</p></a>
+        </div>
+    </div>
+    
+</div>
+{% endfor %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+
+<div class="jumbotron jumbotron-single d-flex align-items-center">
+
+    <div class="container text-center">
+        <h1 class="display-2 mb-4">About</h1>
+    </div>
+</div>
+<section id="who-we-are" class="about-page bg-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="{% static 'img/default.jpg' %}" alt="About Us" class="img-about img-fluid">
+            </div>
+            <div class="col-md-6">
+                <h2>About Our Website</h2>
+                <p>Welcome to our website dedicated to covering all the latest happenings and developments in the world of technology.
+                    We strive to provide comprehensive coverage of every tech-related news and event, ensuring that our readers stay informed and up-to-date.</p>
+                <p>At our website, you'll find a diverse range of articles, from the latest innovations in artificial intelligence and robotics to the newest advancements in mobile technology and software development.
+                    Whether you're a tech enthusiast, a professional in the industry, or simply curious about the latest trends, our website has something for everyone.</p>
+                <p>Our mission is to serve as a reliable source of information and insights into the ever-evolving world of technology.
+                    With a team of passionate writers and experts in various tech domains, we aim to deliver high-quality content that educates, entertains, and inspires our audience.</p>
+                <p>Thank you for visiting our website, and we hope you enjoy exploring the exciting world of technology with us!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock content %}

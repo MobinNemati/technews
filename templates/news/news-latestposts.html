@@ -1,0 +1,20 @@
+{% load static %}
+{% load humanize %}
+
+
+
+<!-- Latest Posts -->
+<div class="latest-posts">
+    <h5 class="latest-posts-title">Latest News</h5>
+    {% for post in posts %}
+    <div class="post">
+        <a href="{% url 'news:single' pid=post.id %}"><img src="{{post.image.url}}" alt="Post 1 Image"></a>
+        <a href="{% url 'news:single' pid=post.id %}"><h6>{{post.title}}</h6></a>
+        <p>{{post.created_date|naturaltime}}</p>
+        {% if not forloop.last %}
+        <p>_____________________________________________</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+    <!-- Add more posts as needed -->
+</div>

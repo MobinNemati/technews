@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load news_tags %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="jumbotron jumbotron-single d-flex align-items-center">
+    <div class="container text-center">
+        <h1 class="display-2 mb-4">News</h1>
+    </div>
+</div> <!-- Blog Section -->
+
+<div class="container">
+    <div class="row">
+        <!-- Left Section - Blog Posts -->  
+        <div class="col-md-8 mt-4">
+            {% include "news/news-search.html" %}
+            {% for post in posts %}
+            <div class="blog-item">
+                <div class="blog-img">
+                    <a href="{% url 'news:single' pid=post.id %}"><img src="{{post.image.url}}" alt=""></a>
+                </div>
+                <div class="blog-text">
+                    <div class="blog-tag">
+                        {% for cat in post.category.all %}
+                        <span class="category-item">
+                            <a href="{% url 'news:category' cat_name=cat.name %}"><small>{{cat.name}}</small></a>{% if not forloop.last %}<span><b>,</b></span>{% endif %}
+                        </span>
+                        {% endfor %}
+                    </div>
+                    <div class="blog-title">
+                        <a href="{% url 'news:single' pid=post.id %}">
+                            <h4>{{post.title}}</h4>
+                        </a>
+                    </div>
+                    <div class="blog-meta">
+                        <p class="blog-date"><b>{{post.updated_date|date:'Y - m -d'}}</b></p> / 
+                        <p class="blog-comment"><b>{% comments_count post.id %} Comments &nbsp;</b><span class="lnr lnr-bubble"></span></p>
+                    </div>
+                    <div class="blog-desc">
+                        <p><b>{{post.content|truncatewords:6|safe}}</b></p>
+                    </div>
+                    <div class="blog-author">
+                        <h6><a href="{% url 'news:author' author_username=post.author %}"><b>{{post.author}}</b></a></h6>
+                    </div>
+                    <div class="blog-share-wrapper">
+                        <p class="view col-lg-12 col-md-12 col-6">{{post.counted_view}} Views&nbsp;&nbsp;<span class="lnr lnr-eye"></span></p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <nav class="blog-pagination justify-content-center d-flex">
+                <ul class="pagination">
+                    {% if posts.has_previous %}
+                    <li class="page-item">
+                        <a href="?page={{ posts.previous_page_number }}" class="page-link" aria-label="Previous">
+                            <span aria-hidden="true">
+                                <b>«</b>
+                            </span>
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% for i in posts.paginator.page_range %}
+                    {% if posts.number == i %}
+                    <li class="page-item active"><a href="?page={{i}}" class="page-link">{{i}}</a></li>
+                    {% else %}
+                    <li class="page-item"><a href="?page={{i}}" class="page-link">{{i}}</a></li>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if posts.has_next %}
+                    <li class="page-item">
+                        <a href="?page={{posts.next_page_number}}" class="page-link" aria-label="Next">
+                            <span aria-hidden="true">
+                                <b>»</b>
+                            </span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+
+        </div>
+
+        <!-- Right Section - Additional Content -->
+        <div class="col-md-4">
+            <div style="padding-right: 20px; height: 100%;">
+                
+                {% categories %}
+
+                {% popularposts %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ... (remaining HTML code) ... -->
+
+{% endblock content %}
