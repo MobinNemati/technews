@@ -19,7 +19,8 @@ def login_view(request):
             try:
                 user = User.objects.get(email=username_or_email)
             except User.DoesNotExist:
-                user = None
+                user = None 
+                # age email nabod ya emaili ke vard karde vojod nadasht user = None
 
             if user is not None:
                 user = authenticate(request, username=user.username, password=password)
