@@ -1,0 +1,150 @@
+# ===========================
+# Python & Django
+# ===========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+*.egg-info/
+*.egg
+.eggs/
+dist/
+build/
+develop-eggs/
+downloads/
+parts/
+sdist/
+var/
+wheels/
+*.manifest
+*.spec
+pip-log.txt
+pip-delete-this-directory.txt
+pip-wheel-metadata/
+share/python-wheels/
+
+# Django
+*.log
+*.pot
+*.pyc
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+mediafiles/
+
+# ===========================
+# Environment Variables
+# ===========================
+.env
+.env.local
+.env.prod
+.env.dev
+.env.staging
+.env.*.local
+*.env
+
+# ===========================
+# Testing
+# ===========================
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+*.cover
+hypothesis/
+.cache/
+
+# ===========================
+# Docker
+# ===========================
+*.pid
+docker-compose.override.yml
+docker-compose.*.override.yml
+.dockerignore
+*.log
+
+# ===========================
+# IDEs & Editors
+# ===========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-*
+.project
+.pydevproject
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# ===========================
+# Logs & Databases
+# ===========================
+logs/
+*.log
+*.sql
+*.sqlite3
+*.sqlite3-journal
+
+# ===========================
+# OS Generated Files
+# ===========================
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.directory
+*.bak
+*.tmp
+*.temp
+
+# ===========================
+# Project Specific
+# ===========================
+/migrations/
+*/migrations/
+!apps/**/migrations/
+!apps/**/migrations/__init__.py
+static_root/
+media_root/
+
+# ===========================
+# Secrets & Keys
+# ===========================
+*.key
+*.pem
+*.crt
+*.p12
+secrets.json
+secrets.yaml
+keys/
+
+# ===========================
+# Backup Files
+# ===========================
+*.backup
+*.bk
+*.old
+*.orig
+*.rej
+
+# ===========================
+# Debug & Profiling
+# ===========================
+profile/
+profiles/
+*.prof
+*.lprof
