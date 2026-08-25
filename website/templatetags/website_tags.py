@@ -1,14 +1,18 @@
 from django import template
-from news.models import Post, Category
-from django.shortcuts import render
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils import timezone
+
+from news.models import Post
 
 
 register = template.Library()
 
+
 @register.inclusion_tag('website/latestposts.html')
 def latestposts(request):
-    now1=timezone.now()
-    posts = Post.objects.filter(published_date__lt=now1, status=1).order_by('-created_date')[:6]
+    """The six newest published posts, authors included to avoid N+1."""
+    posts = (
+        Post.objects.filter(status=True, published_date__lt=timezone.now())
+        .select_related('author')
+        .order_by('-created_date')[:6]
+    )
     return {'posts': posts}

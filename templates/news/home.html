@@ -36,7 +36,7 @@
                     </div>
                     <div class="blog-meta">
                         <p class="blog-date"><b>{{post.updated_date|date:'Y - m -d'}}</b></p> / 
-                        <p class="blog-comment"><b>{% comments_count post.id %} Comments &nbsp;</b><span class="lnr lnr-bubble"></span></p>
+                        <p class="blog-comment"><b>{{ post.comments_count }} Comments &nbsp;</b><span class="lnr lnr-bubble"></span></p>
                     </div>
                     <div class="blog-desc">
                         <p><b>{{post.content|truncatewords:6|safe}}</b></p>

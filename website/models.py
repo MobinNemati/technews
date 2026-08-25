@@ -11,8 +11,8 @@ class Contact(models.Model):
     class Meta:
         ordering = ('created_date',)
 
-        verbose_name = "تماس"
-        verbose_name_plural = "تماس ها"
+        verbose_name = "تیکت"
+        verbose_name_plural = "تیکت ها"
 
     def __str__(self):
         return self.name
